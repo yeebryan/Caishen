@@ -33,8 +33,8 @@ export default function App() {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-between py-8 px-4"
-      style={{ backgroundColor: '#FAEEDA', maxWidth: 390, margin: '0 auto' }}
+      className="min-h-screen flex flex-col items-center justify-between px-4"
+      style={{ backgroundColor: '#FAEEDA', maxWidth: 390, margin: '0 auto', paddingTop: 'max(2rem, env(safe-area-inset-top))', paddingBottom: 'max(2rem, env(safe-area-inset-bottom))' }}
     >
       <header className="w-full flex items-center justify-between">
         <div>
