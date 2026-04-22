@@ -37,7 +37,7 @@ export default function StatsScreen({ show, onClose, streak, stageInfo, totalOff
 
         <div className="flex flex-col gap-4">
           <StatRow
-            label="Current streak"
+            label="Days of devotion"
             value={`${streak} ${streak === 1 ? 'day' : 'days'}${streak >= 3 ? ' 🔥' : ''}`}
           />
           <StatRow

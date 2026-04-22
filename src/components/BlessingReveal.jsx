@@ -58,7 +58,7 @@ export default function BlessingReveal({ number, onDismiss }) {
         </p>
 
         <h2 className="text-2xl font-bold" style={{ color: '#FAEEDA' }}>
-          Blessing of the day
+          A sacred number has been revealed
         </h2>
 
         <div
@@ -70,11 +70,11 @@ export default function BlessingReveal({ number, onDismiss }) {
         </div>
 
         <p className="text-xs leading-relaxed max-w-xs" style={{ color: '#FFFFFF' }}>
-          This number is Caishen's blessing for reflection and spiritual contemplation only.
+          A number bestowed for reflection and spiritual guidance. Not a prediction.
         </p>
 
         <p className="text-xs font-medium" style={{ color: '#FAEEDA', opacity: ready ? 0.8 : 0.3 }}>
-          {ready ? 'Tap anywhere or press Esc to receive this blessing' : 'Caishen is speaking…'}
+          {ready ? 'Tap anywhere to receive Caishen\'s blessing' : 'Caishen is speaking…'}
         </p>
       </div>
     </div>
