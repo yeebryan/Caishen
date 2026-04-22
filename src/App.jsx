@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion } from 'motion/react'
 import CaishenFigure from './components/CaishenFigure'
 import DevotionBar from './components/DevotionBar'
 import OfferingButton from './components/OfferingButton'
@@ -13,6 +14,16 @@ const OFFERINGS = [
   { key: 'joss',   emoji: '🪷', label: 'Joss Sticks' },
   { key: 'fruits', emoji: '🧺', label: 'Fruits' },
 ]
+
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+}
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
+}
 
 export default function App() {
   const [showStats, setShowStats] = useState(false)
@@ -33,37 +44,70 @@ export default function App() {
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-between px-4"
-      style={{ backgroundColor: '#FAEEDA', maxWidth: 390, margin: '0 auto', paddingTop: 'max(2rem, env(safe-area-inset-top))', paddingBottom: 'max(2rem, env(safe-area-inset-bottom))' }}
+      className="min-h-screen flex flex-col items-center justify-between px-4 relative overflow-hidden"
+      style={{
+        maxWidth: 390,
+        margin: '0 auto',
+        paddingTop: 'max(2rem, env(safe-area-inset-top))',
+        paddingBottom: 'max(2rem, env(safe-area-inset-bottom))',
+        background: 'radial-gradient(ellipse at 20% 10%, #fdf0cc 0%, #F5E6C8 45%, #ecd5a8 100%)',
+      }}
     >
-      <header className="w-full flex items-center justify-between">
+      {/* Atmospheric layered texture */}
+      <div className="pointer-events-none absolute inset-0 opacity-30"
+        style={{
+          backgroundImage: 'radial-gradient(circle at 80% 80%, rgba(192,57,43,0.12) 0%, transparent 60%), radial-gradient(circle at 10% 90%, rgba(186,117,23,0.10) 0%, transparent 50%)',
+        }}
+      />
+
+      <motion.header
+        className="w-full flex items-center justify-between relative z-10"
+        initial={{ opacity: 0, y: -16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+      >
         <div>
-          <h1 className="text-2xl font-bold tracking-wide" style={{ color: '#C0392B' }}>
-            Caishen
+          <h1 className="text-3xl font-black tracking-tight" style={{ fontFamily: 'var(--font-display)', color: '#C0392B' }}>
+            財神
           </h1>
-          <p className="text-xs" style={{ color: '#BA7517' }}>God of Fortune</p>
+          <p className="text-xs font-medium tracking-widest uppercase" style={{ color: '#7A4F0D' }}>Caishen · God of Fortune</p>
         </div>
-        <button
+        <motion.button
           onClick={() => setShowStats(true)}
-          className="text-2xl rounded-full flex items-center justify-center focus:outline-2 focus:outline-offset-2 focus:outline-[#C0392B]"
-          style={{ backgroundColor: '#f0ddb0', width: 48, height: 48, minWidth: 48, minHeight: 48 }}
+          className="rounded-full flex items-center justify-center focus:outline-2 focus:outline-offset-2 focus:outline-[#C0392B]"
+          style={{ backgroundColor: 'rgba(186,117,23,0.15)', width: 48, height: 48, fontSize: 22, border: '1.5px solid rgba(186,117,23,0.3)' }}
           aria-label="View devotion stats"
+          whileTap={{ scale: 0.9 }}
         >
           📊
-        </button>
-      </header>
+        </motion.button>
+      </motion.header>
 
-      <main className="flex flex-col items-center gap-8 w-full">
-        <CaishenFigure stage={stageInfo?.stage ?? 1} stageName={stageInfo?.name ?? 'Humble'} />
-        <DevotionBar
-          score={devotionScore}
-          nextThreshold={nextThreshold}
-          barProgress={barProgress}
-        />
-      </main>
+      <motion.main
+        className="flex flex-col items-center gap-8 w-full relative z-10"
+        variants={stagger}
+        initial="hidden"
+        animate="show"
+      >
+        <motion.div variants={fadeUp}>
+          <CaishenFigure stage={stageInfo?.stage ?? 1} stageName={stageInfo?.name ?? 'Humble'} />
+        </motion.div>
+        <motion.div variants={fadeUp} className="w-full">
+          <DevotionBar
+            score={devotionScore}
+            nextThreshold={nextThreshold}
+            barProgress={barProgress}
+          />
+        </motion.div>
+      </motion.main>
 
-      <section className="w-full">
-        <p className="text-center text-xs mb-4 font-medium tracking-wider uppercase" style={{ color: '#BA7517' }}>
+      <motion.section
+        className="w-full relative z-10"
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.35, ease: 'easeOut' }}
+      >
+        <p className="text-center text-xs mb-4 font-semibold tracking-widest uppercase" style={{ color: '#7A4F0D' }}>
           Make your offerings
         </p>
         <div className="grid grid-cols-4 gap-3">
@@ -77,7 +121,7 @@ export default function App() {
             />
           ))}
         </div>
-      </section>
+      </motion.section>
 
       <div aria-live="polite" aria-atomic="true" className="sr-only" />
 
