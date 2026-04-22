@@ -1,6 +1,9 @@
 export default function StatsScreen({ show, onClose, streak, stageInfo, totalOfferings }) {
   return (
     <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Devotion stats"
       className="fixed inset-0 z-40 flex flex-col justify-end transition-all duration-300"
       style={{
         pointerEvents: show ? 'auto' : 'none',
@@ -25,8 +28,8 @@ export default function StatsScreen({ show, onClose, streak, stageInfo, totalOff
           </h2>
           <button
             onClick={onClose}
-            className="text-sm font-medium px-3 py-1 rounded-full"
-            style={{ color: '#BA7517', backgroundColor: '#f0ddb0' }}
+            className="text-sm font-medium px-4 py-3 rounded-full min-w-[44px] min-h-[44px] focus:outline-2 focus:outline-offset-2 focus:outline-[#C0392B]"
+            style={{ color: '#7A4F0D', backgroundColor: '#f0ddb0' }}
           >
             Close
           </button>
@@ -54,7 +57,7 @@ export default function StatsScreen({ show, onClose, streak, stageInfo, totalOff
 function StatRow({ label, value }) {
   return (
     <div className="flex justify-between items-center py-3 border-b" style={{ borderColor: '#e8d5b0' }}>
-      <span className="text-sm" style={{ color: '#BA7517' }}>{label}</span>
+      <span className="text-sm" style={{ color: '#7A4F0D' }}>{label}</span>
       <span className="text-sm font-semibold" style={{ color: '#C0392B' }}>{value}</span>
     </div>
   )

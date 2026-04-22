@@ -45,9 +45,9 @@ export default function App() {
         </div>
         <button
           onClick={() => setShowStats(true)}
-          className="text-2xl p-2 rounded-full"
-          style={{ backgroundColor: '#f0ddb0' }}
-          aria-label="View stats"
+          className="text-2xl rounded-full flex items-center justify-center focus:outline-2 focus:outline-offset-2 focus:outline-[#C0392B]"
+          style={{ backgroundColor: '#f0ddb0', width: 48, height: 48, minWidth: 48, minHeight: 48 }}
+          aria-label="View devotion stats"
         >
           📊
         </button>
@@ -78,6 +78,8 @@ export default function App() {
           ))}
         </div>
       </section>
+
+      <div aria-live="polite" aria-atomic="true" className="sr-only" />
 
       <BlessingReveal
         number={pendingBlessing}
