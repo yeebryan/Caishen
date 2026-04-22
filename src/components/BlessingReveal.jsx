@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 
 export default function BlessingReveal({ number, onDismiss }) {
+  const [visible, setVisible] = useState(false)
   const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    if (!number) { setReady(false); return }
+    if (!number) { setVisible(false); setReady(false); return }
+    requestAnimationFrame(() => setVisible(true))
     const t = setTimeout(() => setReady(true), 300)
     return () => clearTimeout(t)
   }, [number])
@@ -15,8 +17,12 @@ export default function BlessingReveal({ number, onDismiss }) {
 
   return (
     <div
-      className="fixed inset-0 flex flex-col items-center justify-center z-50 px-8"
-      style={{ backgroundColor: 'rgba(192, 57, 43, 0.93)', cursor: ready ? 'pointer' : 'default' }}
+      className="fixed inset-0 flex flex-col items-center justify-center z-50 px-8 transition-opacity duration-300"
+      style={{
+        backgroundColor: 'rgba(192, 57, 43, 0.93)',
+        opacity: visible ? 1 : 0,
+        cursor: ready ? 'pointer' : 'default',
+      }}
       onClick={ready ? onDismiss : undefined}
     >
       <div className="flex flex-col items-center gap-6 text-center">

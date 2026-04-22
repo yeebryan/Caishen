@@ -95,7 +95,6 @@ export function useDevotionState() {
         todayOfferings: { ...prev.todayOfferings, [type]: true },
       }
 
-      console.log('caishen_state:', newState)
       saveState(newState)
       return newState
     })
