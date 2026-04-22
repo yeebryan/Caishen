@@ -1,5 +1,5 @@
 export default function DevotionBar({ score, nextThreshold, barProgress }) {
-  const label = nextThreshold ? `${score} / ${nextThreshold}` : `${score} — Max`
+  const label = nextThreshold ? `${score} of ${nextThreshold}` : `${score} — Fully Blessed`
 
   return (
     <div className="w-full px-6">
@@ -14,7 +14,7 @@ export default function DevotionBar({ score, nextThreshold, barProgress }) {
         aria-valuenow={score}
         aria-valuemin={0}
         aria-valuemax={nextThreshold ?? score}
-        aria-label={`Devotion score: ${label}`}
+        aria-label={`Devotion: ${label}`}
       >
         <div
           className="h-3 rounded-full transition-all duration-500"

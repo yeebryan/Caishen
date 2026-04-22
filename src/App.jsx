@@ -12,7 +12,7 @@ const OFFERINGS = [
   { key: 'coins',  emoji: '🪙', label: 'Coins' },
   { key: 'ingots', emoji: '🏅', label: 'Gold Ingots' },
   { key: 'joss',   emoji: '🪷', label: 'Joss Sticks' },
-  { key: 'fruits', emoji: '🧺', label: 'Fruits' },
+  { key: 'fruits', emoji: '🧺', label: 'Fruit Basket' },
 ]
 
 const stagger = {
@@ -108,7 +108,7 @@ export default function App() {
         transition={{ duration: 0.5, delay: 0.35, ease: 'easeOut' }}
       >
         <p className="text-center text-xs mb-4 font-semibold tracking-widest uppercase" style={{ color: '#7A4F0D' }}>
-          Make your offerings
+          Present your offerings
         </p>
         <div className="grid grid-cols-4 gap-3">
           {OFFERINGS.map(o => (
