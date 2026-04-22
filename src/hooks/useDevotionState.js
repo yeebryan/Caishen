@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react'
+import { generateBlessingNumber, shouldRevealBlessing } from '../utils/blessingLogic'
 
 const KEY = 'caishen_state'
 
@@ -48,7 +49,6 @@ function loadState() {
     const saved = JSON.parse(raw)
     const today = todayString()
 
-    // Daily reset if lastOfferingDate is not today
     if (saved.lastOfferingDate !== today) {
       return {
         ...saved,
@@ -68,8 +68,9 @@ function saveState(state) {
 
 export function useDevotionState() {
   const [state, setState] = useState(loadState)
+  const [pendingBlessing, setPendingBlessing] = useState(null)
 
-  const giveOffering = useCallback((type) => {
+  const giveOffering = useCallback((type, currentBlessingShown) => {
     setState(prev => {
       if (prev.todayOfferings[type]) return prev
 
@@ -85,10 +86,9 @@ export function useDevotionState() {
         newStreak = 1
       }
 
-      const newScore = prev.devotionScore + OFFERING_VALUES[type]
       const newState = {
         ...prev,
-        devotionScore: newScore,
+        devotionScore: prev.devotionScore + OFFERING_VALUES[type],
         streak: newStreak,
         lastOfferingDate: today,
         totalOfferings: (prev.totalOfferings ?? 0) + 1,
@@ -99,6 +99,10 @@ export function useDevotionState() {
       saveState(newState)
       return newState
     })
+
+    if (shouldRevealBlessing(currentBlessingShown)) {
+      setPendingBlessing(generateBlessingNumber())
+    }
   }, [])
 
   const markBlessingShown = useCallback((number) => {
@@ -107,6 +111,7 @@ export function useDevotionState() {
       saveState(newState)
       return newState
     })
+    setPendingBlessing(null)
   }, [])
 
   const stageInfo = getStageInfo(state.devotionScore)
@@ -125,6 +130,7 @@ export function useDevotionState() {
     stageInfo,
     nextThreshold,
     barProgress: Math.min(barProgress, 100),
+    pendingBlessing,
     giveOffering,
     markBlessingShown,
   }

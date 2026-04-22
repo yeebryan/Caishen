@@ -1,6 +1,7 @@
 import CaishenFigure from './components/CaishenFigure'
 import DevotionBar from './components/DevotionBar'
 import OfferingButton from './components/OfferingButton'
+import BlessingReveal from './components/BlessingReveal'
 import { useDevotionState } from './hooks/useDevotionState'
 import './index.css'
 
@@ -18,7 +19,10 @@ export default function App() {
     nextThreshold,
     barProgress,
     todayOfferings,
+    todayBlessingShown,
+    pendingBlessing,
     giveOffering,
+    markBlessingShown,
   } = useDevotionState()
 
   return (
@@ -53,11 +57,16 @@ export default function App() {
               emoji={o.emoji}
               label={o.label}
               done={todayOfferings[o.key]}
-              onClick={() => giveOffering(o.key)}
+              onClick={() => giveOffering(o.key, todayBlessingShown)}
             />
           ))}
         </div>
       </section>
+
+      <BlessingReveal
+        number={pendingBlessing}
+        onDismiss={() => markBlessingShown(pendingBlessing)}
+      />
     </div>
   )
 }
