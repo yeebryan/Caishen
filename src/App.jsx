@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import CaishenFigure from './components/CaishenFigure'
 import DevotionBar from './components/DevotionBar'
 import OfferingButton from './components/OfferingButton'
 import BlessingReveal from './components/BlessingReveal'
+import StatsScreen from './components/StatsScreen'
 import { useDevotionState } from './hooks/useDevotionState'
 import './index.css'
 
@@ -13,11 +15,15 @@ const OFFERINGS = [
 ]
 
 export default function App() {
+  const [showStats, setShowStats] = useState(false)
+
   const {
     devotionScore,
     stageInfo,
     nextThreshold,
     barProgress,
+    streak,
+    totalOfferings,
     todayOfferings,
     todayBlessingShown,
     pendingBlessing,
@@ -30,11 +36,21 @@ export default function App() {
       className="min-h-screen flex flex-col items-center justify-between py-8 px-4"
       style={{ backgroundColor: '#FAEEDA', maxWidth: 390, margin: '0 auto' }}
     >
-      <header className="w-full text-center">
-        <h1 className="text-2xl font-bold tracking-wide" style={{ color: '#C0392B' }}>
-          Caishen
-        </h1>
-        <p className="text-xs" style={{ color: '#BA7517' }}>God of Fortune</p>
+      <header className="w-full flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold tracking-wide" style={{ color: '#C0392B' }}>
+            Caishen
+          </h1>
+          <p className="text-xs" style={{ color: '#BA7517' }}>God of Fortune</p>
+        </div>
+        <button
+          onClick={() => setShowStats(true)}
+          className="text-2xl p-2 rounded-full"
+          style={{ backgroundColor: '#f0ddb0' }}
+          aria-label="View stats"
+        >
+          📊
+        </button>
       </header>
 
       <main className="flex flex-col items-center gap-8 w-full">
@@ -66,6 +82,14 @@ export default function App() {
       <BlessingReveal
         number={pendingBlessing}
         onDismiss={() => markBlessingShown(pendingBlessing)}
+      />
+
+      <StatsScreen
+        show={showStats}
+        onClose={() => setShowStats(false)}
+        streak={streak}
+        stageInfo={stageInfo}
+        totalOfferings={totalOfferings ?? 0}
       />
     </div>
   )
