@@ -1,9 +1,12 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&family=DM+Sans:wght@400;500;600&display=swap');
 
 @theme {
   --color-red-primary: #C0392B;
   --color-gold: #BA7517;
   --color-gold-light: #FAEEDA;
+  --font-display: 'Noto Serif SC', serif;
+  --font-body: 'DM Sans', sans-serif;
 }
 
 * {
@@ -12,8 +15,8 @@
 
 body {
   margin: 0;
-  background-color: #FAEEDA;
-  font-family: system-ui, sans-serif;
+  background-color: #F5E6C8;
+  font-family: var(--font-body);
 }
 
 .sr-only {
@@ -30,9 +33,9 @@ body {
 
 @keyframes pulse-aura {
   0%, 100% { box-shadow: 0 0 0 0 rgba(186, 117, 23, 0.6); }
-  50% { box-shadow: 0 0 0 16px rgba(186, 117, 23, 0); }
+  50% { box-shadow: 0 0 0 20px rgba(186, 117, 23, 0); }
 }
 
 .aura-pulse {
-  animation: pulse-aura 2s ease-in-out infinite;
+  animation: pulse-aura 2.5s ease-in-out infinite;
 }
