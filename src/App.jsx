@@ -34,7 +34,7 @@ export default function App() {
       </header>
 
       <main className="flex flex-col items-center gap-8 w-full">
-        <CaishenFigure stageName={stageInfo?.name ?? 'Humble'} />
+        <CaishenFigure stage={stageInfo?.stage ?? 1} stageName={stageInfo?.name ?? 'Humble'} />
         <DevotionBar
           score={devotionScore}
           nextThreshold={nextThreshold}
